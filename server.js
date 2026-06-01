@@ -43,7 +43,7 @@ app.get('/api/hotels/:id/rooms', async (req, res) => {
 app.post('/api/login', async (req, res) => {
   try {
     const { email, password } = req.body;
-    const rows = await query('SELECT * FROM Users WHERE Email = ?', [email]);
+    const rows = await query('SELECT * FROM Users WHERE Email = ? AND PasswordHash = ?', [email, password]);
     if (!rows.length) return res.json(null);
     res.json(rows[0]);
   } catch (err) {
