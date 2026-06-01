@@ -1,4 +1,4 @@
-const API = "http://localhost:3000/api";
+const API = "/api";
 
 const hero = document.getElementById("hotel-hero");
 const container = document.getElementById("hotel-page");
