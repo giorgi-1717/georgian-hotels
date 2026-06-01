@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+    <meta charset="UTF-8">
+    <title>ავტორიზაცია</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .auth-container {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        .auth-tab {
+            flex: 1;
+            padding: 10px;
+            background: #f5f5f5;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px 5px 0 0;
+        }
+        .auth-tab.active {
+            background: var(--primary-color);
+            color: white;
+        }
+        .auth-form {
+            display: none;
+        }
+        .auth-form.active {
+            display: block;
+        }
+        .auth-form input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .auth-form button {
+            width: 100%;
+            padding: 10px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        .auth-form button:hover {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+
+<div class="auth-container">
+    <h2>ავტორიზაცია</h2>
+
+    <div class="auth-tabs">
+        <button class="auth-tab active" onclick="showForm('login')">შესვლა</button>
+        <button class="auth-tab" onclick="showForm('register')">რეგისტრაცია</button>
+    </div>
+
+    <form class="auth-form active" id="login-form">
+        <input id="login-email" type="email" placeholder="ელ-ფოსტა" required>
+        <input id="login-password" type="password" placeholder="პაროლი" required>
+        <button type="button" onclick="login()">შესვლა</button>
+    </form>
+
+    <form class="auth-form" id="register-form">
+        <input id="reg-name" type="text" placeholder="სახელი" required>
+        <input id="reg-email" type="email" placeholder="ელ-ფოსტა" required>
+        <input id="reg-phone" type="tel" placeholder="ტელეფონი" required>
+        <input id="reg-password" type="password" placeholder="პაროლი" required>
+        <input id="reg-confirm-password" type="password" placeholder="დაადასტურეთ პაროლი" required>
+        <button type="button" onclick="register()">რეგისტრაცია</button>
+    </form>
+</div>
+
+<script src="auth.js"></script>
+<script>
+    function showForm(formType) {
+        document.querySelectorAll('.auth-tab').forEach(tab => tab.classList.remove('active'));
+        document.querySelectorAll('.auth-form').forEach(form => form.classList.remove('active'));
+
+        if (formType === 'login') {
+            document.querySelector('.auth-tab:first-child').classList.add('active');
+            document.getElementById('login-form').classList.add('active');
+        } else {
+            document.querySelector('.auth-tab:last-child').classList.add('active');
+            document.getElementById('register-form').classList.add('active');
+        }
+    }
+</script>
+</body>
+</html>

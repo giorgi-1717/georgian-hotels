@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+    <meta charset="UTF-8">
+    <title>პროფილი</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="header">
+    <div class="logo">LUXHOTELS</div>
+    <nav>
+        <a href="index.html">მთავარი</a>
+        <a href="#" onclick="logout()">გამოსვლა</a>
+    </nav>
+</header>
+
+<section class="hero">
+    <div class="hero-content">
+        <h1>ჩემი პროფილი</h1>
+        <p>მართეთ თქვენი დაჯავშნები და ფავორიტები</p>
+    </div>
+</section>
+
+<section class="profile-content" style="padding: 40px;">
+    <div class="profile-info">
+        <div class="profile-avatar">
+            <img src="https://via.placeholder.com/100x100?text=👤" alt="Avatar">
+        </div>
+        <div class="profile-details">
+            <h2>პირადი ინფორმაცია</h2>
+            <p id="userInfo"></p>
+        </div>
+    </div>
+
+    <div class="profile-section">
+        <h2>📅 ჩემი დაჯავშნები</h2>
+        <div id="bookings-list" class="items-list"></div>
+    </div>
+
+    <div class="profile-section">
+        <h2>❤️ ფავორიტები</h2>
+        <div id="favorites-list" class="items-list"></div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-col">
+            <h2>LUXHOTELS</h2>
+            <p>ჩვენ გთავაზობთ საუკეთესო პრემიუმ სასტუმროებს საქართველოში.</p>
+        </div>
+        <div class="footer-col">
+            <h3>კონტაქტი</h3>
+            <p>📍 თბილისი</p>
+            <p>📞 +995 599 123 456</p>
+            <p>✉️ info@luxhotels.ge</p>
+        </div>
+        <div class="footer-col">
+            <h3>ნავიგაცია</h3>
+            <p><a href="index.html">მთავარი</a></p>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>© 2026 LUXHOTELS</p>
+    </div>
+</footer>
+
+<script src="data.js"></script>
+<script src="profile.js"></script>
+</body>
+</html>

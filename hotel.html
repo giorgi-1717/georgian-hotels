@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+    <meta charset="UTF-8">
+    <title>სასტუმრო</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="header">
+    <div class="logo">GEORGIANHOTELS</div>
+    <nav>
+        <a href="index.html">მთავარი</a>
+    </nav>
+</header>
+
+<!-- HERO -->
+<section class="hotel-hero" id="hotel-hero"></section>
+
+<!-- MAIN -->
+<section class="hotel-page" id="hotel-page"></section>
+
+<!-- FEATURES -->
+<section class="features">
+    <h2>სერვისები</h2>
+    <div class="features-grid">
+        <div>📶 უფასო Wi-Fi</div>
+        <div>🏊 აუზი</div>
+        <div>🍽️ რესტორანი</div>
+        <div>🚗 პარკინგი</div>
+        <div>💆 სპა</div>
+        <div>🏋️ ფიტნესი</div>
+    </div>
+</section>
+
+<!-- MAP -->
+<section class="map-section">
+    <h2>მდებარეობა</h2>
+    <iframe id="hotel-map" width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+</section>
+
+<section class="comments">
+    <h2>კომენტარები</h2>
+
+    <div class="comment-form">
+        <input type="text" id="username" placeholder="თქვენი სახელი">
+        <textarea id="commentText" placeholder="დაწერეთ კომენტარი..."></textarea>
+        <button onclick="addComment()">გაგზავნა</button>
+    </div>
+
+    <div id="comments-list"></div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="footer-container">
+
+        <div class="footer-col">
+            <h2>GEORGIANHOTELS</h2>
+            <p>ჩვენ გთავაზობთ საუკეთესო პრემიუმ სასტუმროებს საქართველოში.</p>
+        </div>
+
+        <div class="footer-col">
+            <h3>კონტაქტი</h3>
+            <p>📍 თბილისი</p>
+            <p>📞 +995 599 123 456</p>
+            <p>✉️ info@GEORGIANHOTELS.ge</p>
+        </div>
+
+        <div class="footer-col">
+            <h3>ნავიგაცია</h3>
+            <p><a href="index.html">მთავარი</a></p>
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+        <p>© 2026 GEORGIANHOTELS</p>
+    </div>
+</footer>
+
+<!-- MODAL -->
+<div id="image-modal" class="modal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <img class="modal-content" id="modal-img">
+</div>
+
+<script src="data.js"></script>
+<script src="hotel.js"></script>
+
+</body>
+</html>
