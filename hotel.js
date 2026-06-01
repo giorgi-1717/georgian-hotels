@@ -1,42 +1,9 @@
-<<<<<<< HEAD
-=======
 const API = "/api";
 
->>>>>>> ef391044fe8bc4a8768d62d7274e1448a07d73f2
 const hero = document.getElementById("hotel-hero");
 const container = document.getElementById("hotel-page");
 
 const params = new URLSearchParams(window.location.search);
-<<<<<<< HEAD
-const hotelId = Number(params.get("id"));
-
-const hotel = hotels.find(h => h.id === hotelId);
-
-let currentImage = 0;
-
-const images = [
-    hotel.image,
-    "assets/hotel1.jpg",
-    "assets/hotel2.jpg"
-];
-
-// HERO
-hero.style.background = `url(${hotel.image}) center/cover`;
-hero.innerHTML = `
-    <div class="hero-overlay">
-        <h1>${hotel.name}</h1>
-        <p>${hotel.city}</p>
-    </div>
-`;
-
-function renderHotel() {
-    container.innerHTML = `
-        <div class="hotel-detail">
-
-            <div class="carousel">
-                <button onclick="prevImage()">←</button>
-                <img src="${images[currentImage]}" id="carousel-img" onclick="openModal('${images[currentImage]}')">
-=======
 const hotelId = params.get("id");
 
 let hotel = null;
@@ -45,7 +12,6 @@ let images = [];
 
 async function loadHotel() {
     try {
-        // Load hotel details
         const res = await fetch(`${API}/hotels`);
         const allHotels = await res.json();
         const h = allHotels.find(h => h.HotelID === hotelId);
@@ -73,7 +39,6 @@ async function loadHotel() {
             `https://loremflickr.com/800/600/hotel,room,bedroom?lock=${hotel.id}3`
         ];
 
-        // Load rooms for this hotel
         const roomsRes = await fetch(`${API}/hotels/${hotelId}/rooms`);
         const rooms = await roomsRes.json();
 
@@ -126,33 +91,16 @@ function renderHotel(rooms) {
             <div class="carousel">
                 <button onclick="prevImage()">←</button>
                 <img src="${images[currentImage]}" id="carousel-img" onclick="openModal('${images[currentImage]}')" alt="${hotel.name}">
->>>>>>> ef391044fe8bc4a8768d62d7274e1448a07d73f2
                 <button onclick="nextImage()">→</button>
             </div>
-
             <div class="hotel-info-big">
                 <h1>${hotel.name}</h1>
-<<<<<<< HEAD
-                <p>${hotel.city}</p>
-                <p>⭐ ${hotel.rating}</p>
-                <p class="price">$${hotel.price}</p>
-
-                <p>
-                პრემიუმ კლასის სასტუმრო საუკეთესო პირობებით.
-                იდეალურია დასვენებისთვის.
-                </p>
-
-                <button class="book-btn" onclick="bookHotel()">დაჯავშნა</button>
-            </div>
-
-=======
                 <p>📍 ${hotel.location}</p>
                 <p>${'⭐'.repeat(hotel.stars)} (${hotel.rating})</p>
                 <p>✉️ ${hotel.email}</p>
-                <p>პრემიუმ კლასის სასტუმრო საუკეთესო პირობებით. იდეალურია დასვენებისთვის.</p>
+                <p>პრემიუმ კლასის სასტუმრო საუკეთესო პირობებით.</p>
                 ${roomsHTML}
             </div>
->>>>>>> ef391044fe8bc4a8768d62d7274e1448a07d73f2
         </div>
     `;
 }
@@ -167,16 +115,6 @@ function prevImage() {
     document.getElementById("carousel-img").src = images[currentImage];
 }
 
-<<<<<<< HEAD
-renderHotel();
-
-// Load map
-const mapIframe = document.getElementById("hotel-map");
-const lat = Number(hotel.lat) || 41.7151;
-const lng = Number(hotel.lng) || 44.8271;
-const bbox = `${lng - 0.02},${lat - 0.01},${lng + 0.02},${lat + 0.01}`;
-mapIframe.src = `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=mapnik&marker=${lat},${lng}`;
-=======
 function loadMap() {
     const mapIframe = document.getElementById("hotel-map");
     const cityCoords = getCityCoords(hotel.location);
@@ -215,10 +153,7 @@ async function bookRoom(roomId, roomType, price) {
     if (!checkin || !checkout) return;
 
     const nights = Math.ceil((new Date(checkout) - new Date(checkin)) / (1000 * 60 * 60 * 24));
-    if (nights <= 0) {
-        alert("არასწორი თარიღები");
-        return;
-    }
+    if (nights <= 0) { alert("არასწორი თარიღები"); return; }
 
     const total = nights * price;
 
@@ -234,7 +169,6 @@ async function bookRoom(roomId, roomType, price) {
                 total: total
             })
         });
-
         const result = await res.json();
         if (result.success) {
             alert(`დაჯავშნა წარმატებულია! სულ: $${total} (${nights} ღამე)`);
@@ -245,7 +179,6 @@ async function bookRoom(roomId, roomType, price) {
         alert("სერვერთან კავშირის შეცდომა");
     }
 }
->>>>>>> ef391044fe8bc4a8768d62d7274e1448a07d73f2
 
 function bookHotel() {
     const currentUser = JSON.parse(localStorage.getItem("currentUser"));
@@ -254,60 +187,23 @@ function bookHotel() {
         window.location.href = "auth.html";
         return;
     }
-<<<<<<< HEAD
-
-    const bookingsKey = `bookings_${currentUser.email}`;
-    let bookings = JSON.parse(localStorage.getItem(bookingsKey)) || [];
-
-    // Check if already booked
-    if (bookings.find(b => b.hotelId === hotelId)) {
-        alert("ეს სასტუმრო უკვე დაჯავშნილია");
-        return;
-    }
-
-    bookings.push({
-        hotelId: hotelId,
-        hotelName: hotel.name,
-        date: new Date().toISOString().split('T')[0] // Today's date
-    });
-
-    localStorage.setItem(bookingsKey, JSON.stringify(bookings));
-    alert("დაჯავშნა წარმატებულია!");
-=======
     alert("დაჯავშნა წარმატებულია! ✅");
->>>>>>> ef391044fe8bc4a8768d62d7274e1448a07d73f2
 }
 
 function openModal(src) {
     const modal = document.getElementById("image-modal");
-<<<<<<< HEAD
-    const modalImg = document.getElementById("modal-img");
-    modal.style.display = "block";
-    modalImg.src = src;
-=======
     document.getElementById("modal-img").src = src;
     modal.style.display = "block";
->>>>>>> ef391044fe8bc4a8768d62d7274e1448a07d73f2
 }
 
 function closeModal() {
     document.getElementById("image-modal").style.display = "none";
 }
 
-<<<<<<< HEAD
-// Close modal on click outside
-window.onclick = function(event) {
-    const modal = document.getElementById("image-modal");
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
-=======
 window.onclick = function (event) {
     const modal = document.getElementById("image-modal");
     if (event.target === modal) modal.style.display = "none";
 };
->>>>>>> ef391044fe8bc4a8768d62d7274e1448a07d73f2
 
 function getCommentsKey() {
     return `comments_${hotelId}`;
@@ -315,22 +211,6 @@ function getCommentsKey() {
 
 function loadComments() {
     const comments = JSON.parse(localStorage.getItem(getCommentsKey())) || [];
-<<<<<<< HEAD
-    const container = document.getElementById("comments-list");
-
-    container.innerHTML = "";
-
-    comments.forEach(c => {
-        const div = document.createElement("div");
-        div.classList.add("comment");
-
-        div.innerHTML = `
-            <strong>${c.name}</strong>
-            <p>${c.text}</p>
-        `;
-
-        container.appendChild(div);
-=======
     const list = document.getElementById("comments-list");
     list.innerHTML = "";
     comments.forEach(c => {
@@ -338,44 +218,21 @@ function loadComments() {
         div.classList.add("comment");
         div.innerHTML = `<strong>${c.name}</strong><p>${c.text}</p>`;
         list.appendChild(div);
->>>>>>> ef391044fe8bc4a8768d62d7274e1448a07d73f2
     });
 }
 
 function addComment() {
     const name = document.getElementById("username").value;
     const text = document.getElementById("commentText").value;
-<<<<<<< HEAD
-
-    if (!name || !text) {
-        alert("შეავსეთ ყველა ველი");
-        return;
-    }
-
-    let comments = JSON.parse(localStorage.getItem(getCommentsKey())) || [];
-
-    comments.push({ name, text });
-
-=======
     if (!name || !text) { alert("შეავსეთ ყველა ველი"); return; }
 
     let comments = JSON.parse(localStorage.getItem(getCommentsKey())) || [];
     comments.push({ name, text });
->>>>>>> ef391044fe8bc4a8768d62d7274e1448a07d73f2
     localStorage.setItem(getCommentsKey(), JSON.stringify(comments));
 
     document.getElementById("username").value = "";
     document.getElementById("commentText").value = "";
-<<<<<<< HEAD
-
-    loadComments();
-}
-
-// загрузка при старте
-setTimeout(loadComments, 100);
-=======
     loadComments();
 }
 
 loadHotel();
->>>>>>> ef391044fe8bc4a8768d62d7274e1448a07d73f2
