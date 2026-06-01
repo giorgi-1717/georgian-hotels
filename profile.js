@@ -1,4 +1,4 @@
-const API = "/api";
+const PROFILE_API = "/api";
 const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
 if (!currentUser) {
@@ -15,7 +15,7 @@ async function loadBookings() {
     container.innerHTML = "<p>იტვირთება...</p>";
 
     try {
-        const res = await fetch(`${API}/bookings/${currentUser.userID}`);
+        const res = await fetch(`${PROFILE_API}/bookings/${currentUser.userID}`);
         const bookings = await res.json();
 
         if (!bookings.length) {
@@ -51,7 +51,7 @@ async function loadFavorites() {
     }
 
     try {
-        const res = await fetch(`${API}/hotels`);
+        const res = await fetch(`${PROFILE_API}/hotels`);
         const allHotels = await res.json();
 
         container.innerHTML = "";
