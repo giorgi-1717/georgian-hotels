@@ -112,7 +112,7 @@ function applyFilters() {
         );
     }
 
-    const sortValue = document.getElementById("sort").value;
+    const sortValue = document.getElementById("sort") ? document.getElementById("sort").value : "";
     if (sortValue === "price-low") filtered.sort((a, b) => a.price - b.price);
     else if (sortValue === "price-high") filtered.sort((a, b) => b.price - a.price);
     else if (sortValue === "rating") filtered.sort((a, b) => b.rating - a.rating);
@@ -122,16 +122,19 @@ function applyFilters() {
     renderHotels(currentList);
 }
 
-document.getElementById("minPrice").addEventListener("input", function () {
+const minPriceEl = document.getElementById("minPrice");
+const maxPriceEl = document.getElementById("maxPrice");
+
+if (minPriceEl) minPriceEl.addEventListener("input", function () {
     document.getElementById("minPriceValue").textContent = this.value;
     applyFilters();
 });
-document.getElementById("maxPrice").addEventListener("input", function () {
+if (maxPriceEl) maxPriceEl.addEventListener("input", function () {
     document.getElementById("maxPriceValue").textContent = this.value;
     applyFilters();
 });
 
-sortSelect.addEventListener("change", applyFilters);
+if (sortSelect) sortSelect.addEventListener("change", applyFilters);
 
 function addToFavorites(id) {
     let favs = JSON.parse(localStorage.getItem("favorites")) || [];
