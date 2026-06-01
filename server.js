@@ -62,7 +62,7 @@ app.post('/api/register', async (req, res) => {
     const count = countRows[0].cnt + 1;
     const userID = 'USR' + String(count).padStart(8, '0');
     const username = name.toLowerCase().replace(/\s+/g, '_');
-    const passHash = password.substring(0, 20);
+    const passHash = password;
     await query(
       'INSERT INTO Users (UserID, Username, Email, PasswordHash) VALUES (?, ?, ?, ?)',
       [userID, username, email, passHash]
