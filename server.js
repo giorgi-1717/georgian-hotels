@@ -108,5 +108,13 @@ app.post('/api/bookings', async (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
+  app.get('/api/tables', async (req, res) => {
+  try {
+    const rows = await query('SHOW TABLES');
+    res.json(rows);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
   console.log(`Server running on port ${PORT}`);
 });
