@@ -1,4 +1,4 @@
-const API = "/api";
+const HOTEL_API = "/api";
 
 const hero = document.getElementById("hotel-hero");
 const container = document.getElementById("hotel-page");
@@ -12,7 +12,7 @@ let images = [];
 
 async function loadHotel() {
     try {
-        const res = await fetch(`${API}/hotels`);
+        const res = await fetch(`${HOTEL_API}/hotels`);
         const allHotels = await res.json();
         const h = allHotels.find(h => h.HotelID === hotelId);
 
@@ -39,7 +39,7 @@ async function loadHotel() {
             `https://loremflickr.com/800/600/hotel,room,bedroom?lock=${hotel.id}3`
         ];
 
-        const roomsRes = await fetch(`${API}/hotels/${hotelId}/rooms`);
+        const roomsRes = await fetch(`${HOTEL_API}/hotels/${hotelId}/rooms`);
         const rooms = await roomsRes.json();
 
         renderHero();
@@ -158,7 +158,7 @@ async function bookRoom(roomId, roomType, price) {
     const total = nights * price;
 
     try {
-        const res = await fetch(`${API}/bookings`, {
+        const res = await fetch(`${HOTEL_API}/bookings`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
