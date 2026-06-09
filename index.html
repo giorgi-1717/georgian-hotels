@@ -11,8 +11,6 @@
     <div class="logo">GEORGIANHOTELS</div>
     <nav>
         <a href="#">მთავარი</a>
-        <a href="#">სასტუმროები</a>
-        <a href="profile.html">ფავორიტები</a>
         <a href="profile.html">პროფილი</a>
     </nav>
 </header>
@@ -25,15 +23,29 @@
         <div class="search-box">
             <div class="search-field">
                 <label>ქალაქი</label>
-                <input type="text" id="city" placeholder="მაგ. თბილისი">
+                <select id="city">
+                    <option value="">ყველა ქალაქი</option>
+                    <option value="Tbilisi">თბილისი</option>
+                    <option value="Batumi">ბათუმი</option>
+                    <option value="Kutaisi">ქუთაისი</option>
+                    <option value="Gudauri">გუდაური</option>
+                    <option value="Stepantsminda">სტეფანწმინდა</option>
+                    <option value="Mestia">მესტია</option>
+                    <option value="Borjomi">ბორჯომი</option>
+                    <option value="Telavi">თელავი</option>
+                    <option value="Sighnaghi">სიღნაღი</option>
+                    <option value="Kakheti">კახეთი</option>
+                    <option value="Napareuli">ნაფარეული</option>
+                    <option value="Shekvetili">შეკვეთილი</option>
+                </select>
             </div>
             <div class="search-field">
                 <label>შესვლა</label>
-                <input type="date" id="checkin">
+                <input type="date" id="checkin" min="">
             </div>
             <div class="search-field">
                 <label>გასვლა</label>
-                <input type="date" id="checkout">
+                <input type="date" id="checkout" min="">
             </div>
             <div class="search-field">
                 <label>სტუმრები</label>
@@ -57,11 +69,8 @@
 
 <section class="filters">
     <div class="filter-group">
-        <label>ფასი:</label>
-        <input type="range" id="minPrice" min="50" max="250" value="50" step="10">
-        <span id="minPriceValue">50</span> - 
-        <input type="range" id="maxPrice" min="50" max="250" value="250" step="10">
-        <span id="maxPriceValue">250</span> USD
+        <label>მაქსიმალური ფასი: <span id="maxPriceValue">1500</span> USD</label>
+        <input type="range" id="maxPrice" min="100" max="1500" value="1500" step="50">
     </div>
 
     <div class="filter-group">
@@ -106,9 +115,7 @@
         <div class="footer-col">
             <h3>ნავიგაცია</h3>
             <p><a href="#">მთავარი</a></p>
-            <p><a href="#">სასტუმროები</a></p>
-            <p><a href="#">ფავორიტები</a></p>
-            <p><a href="#">პროფილი</a></p>
+            <p><a href="profile.html">პროფილი</a></p>
         </div>
 
     </div>
