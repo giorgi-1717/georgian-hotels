@@ -92,9 +92,9 @@ app.get('/api/bookings/:userId', async (req, res) => {
 app.post('/api/bookings', async (req, res) => {
   try {
     const { userID, roomID, checkIn, checkOut, total } = req.body;
-    const countRows = await query('SELECT COUNT(*) as cnt FROM Booking');
-    const count = countRows[0].cnt + 1;
-    const bookingID = 'BK' + String(count).padStart(8, '0');
+    const countRows = await query('SELECT MAX(CAST(SUBSTRING(BookingID, 3) AS UNSIGNED)) as maxId FROM Booking');
+    const maxId = countRows[0].maxId || 0;
+    const bookingID = 'BK' + String(maxId + 1).padStart(8, '0');
     await query(
       'INSERT INTO Booking (BookingID, UserID, RoomID, CheckInDate, CheckOutDate, TotalPrice) VALUES (?, ?, ?, ?, ?, ?)',
       [bookingID, userID, roomID, checkIn, checkOut, total]
