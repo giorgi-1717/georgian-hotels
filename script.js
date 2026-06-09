@@ -145,4 +145,10 @@ function addToFavorites(id) {
     } else {
         alert("უკვე დამატებულია ფავორიტებში");
     }
-}
+}const today = new Date().toISOString().split("T")[0];
+document.getElementById("checkin").min = today;
+document.getElementById("checkout").min = today;
+
+document.getElementById("checkin").addEventListener("change", function() {
+    document.getElementById("checkout").min = this.value;
+});
