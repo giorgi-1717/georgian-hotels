@@ -60,11 +60,11 @@ async function login() {
         });
         const user = await res.json();
         if (!user || user.error) { alert("არასწორი მონაცემები"); return; }
-        localStorage.setItem("currentUser", JSON.stringify({
-            userID: user.UserID,
-            name:   user.Username,
-            email:  user.Email
-        }));
+         localStorage.setItem("currentUser", JSON.stringify({
+          userID: user.UserID,
+          name:   user.Username || user.name,
+          email:  user.Email
+}));
         window.location.href = "profile.html";
     } catch (err) {
         alert("სერვერთან კავშირის შეცდომა");
