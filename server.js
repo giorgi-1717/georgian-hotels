@@ -212,7 +212,19 @@ app.get('/api/setup', async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
-
+app.post('/api/reset-password', async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const existing = await query('SELECT UserID FROM Users WHERE Email = ?', [email]);
+    if (!existing.length) {
+      return res.json({ error: 'ელ-ფოსტა ვერ მოიძებნა' });
+    }
+    await query('UPDATE Users SET PasswordHash = ? WHERE Email = ?', [password, email]);
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   app.get('/api/tables', async (req, res) => {

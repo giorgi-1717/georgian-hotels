@@ -70,3 +70,37 @@ async function login() {
         alert("სერვერთან კავშირის შეცდომა");
     }
 }
+async function resetPassword() {
+    const email = document.getElementById("reset-email").value.trim();
+    const newPassword = document.getElementById("reset-new-password").value;
+    const confirmPassword = document.getElementById("reset-confirm-password").value;
+
+    if (!email || !newPassword || !confirmPassword) {
+        alert("შეავსე ყველა ველი"); return;
+    }
+    if (newPassword.length < 6) {
+        alert("პაროლი უნდა იყოს მინიმუმ 6 სიმბოლო"); return;
+    }
+    if (newPassword !== confirmPassword) {
+        alert("პაროლები არ ემთხვევა"); return;
+    }
+
+    const hashedPassword = await hashPassword(newPassword);
+
+    try {
+        const res = await fetch(`${API}/reset-password`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password: hashedPassword })
+        });
+        const result = await res.json();
+        if (result.success) {
+            alert("პაროლი წარმატებით შეიცვალა! ✅");
+            showForm('login');
+        } else {
+            alert("შეცდომა: " + (result.error || "ელ-ფოსტა ვერ მოიძებნა"));
+        }
+    } catch (err) {
+        alert("სერვერთან კავშირის შეცდომა");
+    }
+}

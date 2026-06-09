@@ -56,6 +56,19 @@
         .auth-form button:hover {
             opacity: 0.9;
         }
+        .forgot-link {
+            text-align: right;
+            margin-top: 5px;
+        }
+        .forgot-link a {
+            color: var(--primary-color);
+            font-size: 13px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .forgot-link a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -66,14 +79,20 @@
     <div class="auth-tabs">
         <button class="auth-tab active" onclick="showForm('login')">შესვლა</button>
         <button class="auth-tab" onclick="showForm('register')">რეგისტრაცია</button>
+        <button class="auth-tab" onclick="showForm('reset')">პაროლის აღდგენა</button>
     </div>
 
+    <!-- შესვლა -->
     <form class="auth-form active" id="login-form">
         <input id="login-email" type="email" placeholder="ელ-ფოსტა" required>
         <input id="login-password" type="password" placeholder="პაროლი" required>
+        <div class="forgot-link">
+            <a onclick="showForm('reset')">პაროლი დაგავიწყდათ?</a>
+        </div>
         <button type="button" onclick="login()">შესვლა</button>
     </form>
 
+    <!-- რეგისტრაცია -->
     <form class="auth-form" id="register-form">
         <input id="reg-name" type="text" placeholder="სახელი" required>
         <input id="reg-email" type="email" placeholder="ელ-ფოსტა" required>
@@ -81,6 +100,15 @@
         <input id="reg-password" type="password" placeholder="პაროლი" required>
         <input id="reg-confirm-password" type="password" placeholder="დაადასტურეთ პაროლი" required>
         <button type="button" onclick="register()">რეგისტრაცია</button>
+    </form>
+
+    <!-- პაროლის აღდგენა -->
+    <form class="auth-form" id="reset-form">
+        <p style="color:#666;font-size:13px;margin-bottom:10px;">შეიყვანეთ ელ-ფოსტა და ახალი პაროლი</p>
+        <input id="reset-email" type="email" placeholder="ელ-ფოსტა" required>
+        <input id="reset-new-password" type="password" placeholder="ახალი პაროლი" required>
+        <input id="reset-confirm-password" type="password" placeholder="დაადასტურეთ პაროლი" required>
+        <button type="button" onclick="resetPassword()">პაროლის შეცვლა</button>
     </form>
 </div>
 
@@ -91,11 +119,14 @@
         document.querySelectorAll('.auth-form').forEach(form => form.classList.remove('active'));
 
         if (formType === 'login') {
-            document.querySelector('.auth-tab:first-child').classList.add('active');
+            document.querySelectorAll('.auth-tab')[0].classList.add('active');
             document.getElementById('login-form').classList.add('active');
-        } else {
-            document.querySelector('.auth-tab:last-child').classList.add('active');
+        } else if (formType === 'register') {
+            document.querySelectorAll('.auth-tab')[1].classList.add('active');
             document.getElementById('register-form').classList.add('active');
+        } else if (formType === 'reset') {
+            document.querySelectorAll('.auth-tab')[2].classList.add('active');
+            document.getElementById('reset-form').classList.add('active');
         }
     }
 </script>
