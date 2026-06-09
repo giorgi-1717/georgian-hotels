@@ -1,4 +1,4 @@
-const API = "http://localhost:3000/api";
+const HOTEL_API = "/api";
 
 const hero = document.getElementById("hotel-hero");
 const container = document.getElementById("hotel-page");
@@ -10,10 +10,47 @@ let hotel = null;
 let currentImage = 0;
 let images = [];
 
+function getHotelImage(name) {
+    const n = name.toLowerCase();
+    if (n.includes("metexi") || n.includes("grand sheraton")) return "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800";
+    if (n.includes("sheraton batumi")) return "https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=800";
+    if (n.includes("gudauri")) return "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=800";
+    if (n.includes("city center")) return "https://images.unsplash.com/photo-1496417263034-38ec4f0b665a?w=800";
+    if (n.includes("tbilisi marriott") && !n.includes("courtyard")) return "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=800";
+    if (n.includes("biltmore")) return "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=800";
+    if (n.includes("radisson")) return "https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=800";
+    if (n.includes("rooms hotel kazbegi")) return "https://images.unsplash.com/photo-1586611292717-f828b167408c?w=800";
+    if (n.includes("stamba hotel batumi")) return "https://images.unsplash.com/photo-1561501900-3701fa6a0864?w=800";
+    if (n.includes("stamba")) return "https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=800";
+    if (n.includes("rooms hotel tbilisi")) return "https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=800";
+    if (n.includes("lopota")) return "https://images.unsplash.com/photo-1582719508461-905c673771fd?w=800";
+    if (n.includes("telegraph")) return "https://images.unsplash.com/photo-1455587734955-081b22074882?w=800";
+    if (n.includes("paragraph")) return "https://images.unsplash.com/photo-1506059612708-99d6c258160e?w=800";
+    if (n.includes("steel tower")) return "https://images.unsplash.com/photo-1445019980597-93fa8acb246c?w=800";
+    if (n.includes("crowne plaza")) return "https://images.unsplash.com/photo-1551016168-1eed2a0fa23e?w=800";
+    if (n.includes("kolkhi")) return "https://images.unsplash.com/photo-1568084680786-a84f91d1153c?w=800";
+    if (n.includes("rooms hotel batumi")) return "https://images.unsplash.com/photo-1549294413-26f195200c16?w=800";
+    if (n.includes("bioli")) return "https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=800";
+    if (n.includes("chateau mere")) return "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=800";
+    if (n.includes("sante palace")) return "https://images.unsplash.com/photo-1600011689032-8b628b8a8747?w=800";
+    if (n.includes("lahili")) return "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800";
+    if (n.includes("gistola")) return "https://images.unsplash.com/photo-1486870591958-9b9d0d1dda99?w=800";
+    if (n.includes("hilltop")) return "https://images.unsplash.com/photo-1454496522488-7a8e488e8606?w=800";
+    if (n.includes("paradiso")) return "https://images.unsplash.com/photo-1519681393784-d120267933ba?w=800";
+    if (n.includes("kakhshiani")) return "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=800";
+    if (n.includes("british house")) return "https://images.unsplash.com/photo-1512918728675-ed5a9ecdebfd?w=800";
+    if (n.includes("horizon kazbegi")) return "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800";
+    if (n.includes("mit hotel")) return "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=800";
+    if (n.includes("s&l boutique")) return "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800";
+    if (n.includes("brosse")) return "https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=800";
+    if (n.includes("meridien")) return "https://images.unsplash.com/photo-1549638441-b787d2e11f14?w=800";
+    if (n.includes("courtyard")) return "https://images.unsplash.com/photo-1559508551-44bff1de756b?w=800";
+    return "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800";
+}
+
 async function loadHotel() {
     try {
-        // Load hotel details
-        const res = await fetch(`${API}/hotels`);
+        const res = await fetch(`${HOTEL_API}/hotels`);
         const allHotels = await res.json();
         const h = allHotels.find(h => h.HotelID === hotelId);
 
@@ -21,6 +58,8 @@ async function loadHotel() {
             container.innerHTML = "<p>სასტუმრო ვერ მოიძებნა</p>";
             return;
         }
+
+        const mainImage = getHotelImage(h.Name);
 
         hotel = {
             id: h.HotelID,
@@ -31,17 +70,16 @@ async function loadHotel() {
             rating: h.StarRating,
             email: h.Email,
             price: getPriceByStars(h.StarRating),
-            image: `https://loremflickr.com/800/600/hotel,luxury,architecture?lock=${h.HotelID}`
+            image: mainImage
         };
 
         images = [
-            hotel.image,
-            `https://loremflickr.com/800/600/hotel,interior,lobby?lock=${hotel.id}2`,
-            `https://loremflickr.com/800/600/hotel,room,bedroom?lock=${hotel.id}3`
+            mainImage,
+            "https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=800",
+            "https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=800"
         ];
 
-        // Load rooms for this hotel
-        const roomsRes = await fetch(`${API}/hotels/${hotelId}/rooms`);
+        const roomsRes = await fetch(`${HOTEL_API}/hotels/${hotelId}/rooms`);
         const rooms = await roomsRes.json();
 
         renderHero();
@@ -73,6 +111,9 @@ function renderHero() {
 }
 
 function renderHotel(rooms) {
+    const checkin = localStorage.getItem("checkin") || "";
+    const checkout = localStorage.getItem("checkout") || "";
+
     const roomsHTML = rooms.length > 0 ? `
         <div class="rooms-section">
             <h2>ნომრები</h2>
@@ -80,9 +121,9 @@ function renderHotel(rooms) {
                 <div class="room-card">
                     <h3>${r.RoomType}</h3>
                     <p>💰 $${r.Price} / ღამე</p>
-                    <p>✅ ${r.Availability ? 'ხელმისაწვდომია' : 'დაჯავშნილია'}</p>
+                    <p>✅ ხელმისაწვდომია</p>
                     <p>🛎️ ${r.Features || 'სტანდარტული მომსახურება'}</p>
-                    ${r.Availability ? `<button class="book-btn" onclick="bookRoom('${r.RoomID}', '${r.RoomType}', ${r.Price})">დაჯავშნა - $${r.Price}</button>` : `<button class="book-btn disabled" disabled>დაჯავშნილია</button>`}
+                    <button class="book-btn" onclick="bookRoom('${r.RoomID}', '${r.RoomType}', ${r.Price})">დაჯავშნა - $${r.Price}</button>
                 </div>
             `).join("")}
         </div>
@@ -95,13 +136,16 @@ function renderHotel(rooms) {
                 <img src="${images[currentImage]}" id="carousel-img" onclick="openModal('${images[currentImage]}')" alt="${hotel.name}">
                 <button onclick="nextImage()">→</button>
             </div>
-
             <div class="hotel-info-big">
                 <h1>${hotel.name}</h1>
                 <p>📍 ${hotel.location}</p>
                 <p>${'⭐'.repeat(hotel.stars)} (${hotel.rating})</p>
                 <p>✉️ ${hotel.email}</p>
-                <p>პრემიუმ კლასის სასტუმრო საუკეთესო პირობებით. იდეალურია დასვენებისთვის.</p>
+                <p>პრემიუმ კლასის სასტუმრო საუკეთესო პირობებით.</p>
+                <div class="date-display">
+                    <p>📅 შესვლა: <strong>${checkin || 'არ არის არჩეული'}</strong></p>
+                    <p>📅 გასვლა: <strong>${checkout || 'არ არის არჩეული'}</strong></p>
+                </div>
                 ${roomsHTML}
             </div>
         </div>
@@ -150,10 +194,25 @@ async function bookRoom(roomId, roomType, price) {
         return;
     }
 
-    const checkin = prompt("შეიყვანეთ შესვლის თარიღი (YYYY-MM-DD):");
-    const checkout = prompt("შეიყვანეთ გასვლის თარიღი (YYYY-MM-DD):");
+    let checkin = localStorage.getItem("checkin");
+    let checkout = localStorage.getItem("checkout");
 
-    if (!checkin || !checkout) return;
+    console.log("checkin:", checkin);
+    console.log("checkout:", checkout);
+    console.log("userID:", currentUser.userID);
+    console.log("roomID:", roomId);
+
+    if (!checkin || checkin === "null" || checkin === "") {
+        checkin = prompt("შეიყვანეთ შესვლის თარიღი (YYYY-MM-DD):");
+    }
+    if (!checkout || checkout === "null" || checkout === "") {
+        checkout = prompt("შეიყვანეთ გასვლის თარიღი (YYYY-MM-DD):");
+    }
+
+    if (!checkin || !checkout) {
+        alert("გთხოვთ შეიყვანოთ თარიღები");
+        return;
+    }
 
     const nights = Math.ceil((new Date(checkout) - new Date(checkin)) / (1000 * 60 * 60 * 24));
     if (nights <= 0) {
@@ -164,7 +223,7 @@ async function bookRoom(roomId, roomType, price) {
     const total = nights * price;
 
     try {
-        const res = await fetch(`${API}/bookings`, {
+        const res = await fetch(`${HOTEL_API}/bookings`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -175,7 +234,6 @@ async function bookRoom(roomId, roomType, price) {
                 total: total
             })
         });
-
         const result = await res.json();
         if (result.success) {
             alert(`დაჯავშნა წარმატებულია! სულ: $${total} (${nights} ღამე)`);
